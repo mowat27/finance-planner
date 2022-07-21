@@ -1,4 +1,5 @@
-import { Payee, Recipient } from "./types";
+export type Payee = string;
+export type Recipient = string;
 
 export interface Transaction {
   date: Date;

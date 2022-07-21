@@ -1,10 +1,5 @@
-import React, { useContext } from "react";
-import { TransactionsContext } from "../pages/index";
-import { Transaction } from "../shared/interfaces";
-
-export interface TransactionProps {
-  transactions: Transaction[];
-}
+import useTransactions from "../state/transactions/use";
+import { Transaction } from "../state/transactions/types";
 
 const Transaction = ({
   date,
@@ -25,11 +20,11 @@ const Transaction = ({
 };
 
 const Transactions = () => {
-  const { transactions } = useContext(TransactionsContext);
+  const { state } = useTransactions();
   return (
     <div>
       <h2>Transactions</h2>
-      {transactions.map((trxn) => Transaction(trxn))}
+      {state.transactions.map((trxn: Transaction) => Transaction(trxn))}
     </div>
   );
 };
