@@ -1,3 +1,5 @@
+import { createContext } from "react";
+
 import type { NextPage } from "next";
 import Head from "next/head";
 
@@ -8,6 +10,8 @@ import Transactions from "../components/Transactions";
 import Summary from "../components/Summary";
 
 import { Transaction } from "../shared/interfaces";
+
+export const TransactionsContext = createContext({});
 
 const transactions: Transaction[] = [
   {
@@ -33,18 +37,20 @@ const transactions: Transaction[] = [
 
 const Home: NextPage = () => {
   return (
-    <div className={styles.container}>
-      <Head>
-        <title>Finance Planner</title>
-        <meta name="description" content="Personal finance planning app" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <Header />
-      <main className={styles.main}>
-        <Summary />
-        <Transactions transactions={transactions} />
-      </main>
-    </div>
+    <TransactionsContext.Provider value={{ transactions }}>
+      <div className={styles.container}>
+        <Head>
+          <title>Finance Planner</title>
+          <meta name="description" content="Personal finance planning app" />
+          <link rel="icon" href="/favicon.ico" />
+        </Head>
+        <Header />
+        <main className={styles.main}>
+          <Summary />
+          <Transactions />
+        </main>
+      </div>
+    </TransactionsContext.Provider>
   );
 };
 

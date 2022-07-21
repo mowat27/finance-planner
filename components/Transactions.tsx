@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useContext } from "react";
+import { TransactionsContext } from "../pages/index";
 import { Transaction } from "../shared/interfaces";
 
 export interface TransactionProps {
@@ -23,7 +24,8 @@ const Transaction = ({
   );
 };
 
-const Transactions = ({ transactions }: TransactionProps) => {
+const Transactions = () => {
+  const { transactions } = useContext(TransactionsContext);
   return (
     <div>
       <h2>Transactions</h2>
