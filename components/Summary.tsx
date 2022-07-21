@@ -1,12 +1,14 @@
 import useTransactions from "../state/transactions/use";
 
 const Summary = () => {
-  const { state } = useTransactions();
+  const {
+    state: { transactions },
+  } = useTransactions();
 
   return (
     <div>
       <h2>Summary</h2>
-      <p>You have {state.transactions.length} transactions</p>
+      <p>You have {transactions.length} transactions</p>
     </div>
   );
 };

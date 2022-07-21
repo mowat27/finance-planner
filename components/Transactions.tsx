@@ -20,11 +20,13 @@ const Transaction = ({
 };
 
 const Transactions = () => {
-  const { state } = useTransactions();
+  const {
+    state: { transactions },
+  } = useTransactions();
   return (
     <div>
       <h2>Transactions</h2>
-      {state.transactions.map((trxn: Transaction) => Transaction(trxn))}
+      {transactions.map((trxn: Transaction) => Transaction(trxn))}
     </div>
   );
 };
