@@ -1,29 +1,13 @@
 import { useState, useEffect } from "react";
 import { DateTime } from "luxon";
+
 import { useTransactions } from "..";
 import { Transaction } from "../types";
+import TransactionListItem from "./TransactionListItem";
 
 import { generatePaymentSchedule } from "../lib/generators";
 
-const Transaction = ({
-  date,
-  amount,
-  otherParty,
-  description,
-  reference,
-}: Transaction) => {
-  return (
-    <div key={`${date}${amount}${otherParty}${description}`}>
-      <span>{date.toLocaleString(DateTime.DATE_MED_WITH_WEEKDAY)}</span>&nbsp;
-      <span>{amount}</span>&nbsp;
-      <span>{otherParty}</span>&nbsp;
-      <span>{description}</span>&nbsp;
-      <span>{reference}</span>
-    </div>
-  );
-};
-
-const Transactions = () => {
+function TransactionList() {
   const {
     state: { transactions, paymentSchedule },
   } = useTransactions();
@@ -44,11 +28,11 @@ const Transactions = () => {
     <div>
       <h2>Transactions</h2>
       <h3>Past</h3>
-      {transactions.map((trxn: Transaction) => Transaction(trxn))}
+      {transactions.map((trxn) => TransactionListItem(trxn))}
       <h3>Upcoming</h3>
-      {futureTransactions.map((trxn: Transaction) => Transaction(trxn))}
+      {futureTransactions.map((trxn) => TransactionListItem(trxn))}
     </div>
   );
-};
+}
 
-export default Transactions;
+export default TransactionList;

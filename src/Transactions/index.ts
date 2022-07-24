@@ -1,4 +1,4 @@
-import Transactions from "./components/Transactions";
+import Transactions from "./components/TransactionList";
 
 export { TransactionsProvider } from "./state/provider";
 export { useTransactions } from "./state/use";

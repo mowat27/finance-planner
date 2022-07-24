@@ -1,6 +1,6 @@
 import styles from "../styles/Home.module.css";
 
-import Transactions, { TransactionsProvider } from "./Transactions";
+import TransactionList, { TransactionsProvider } from "./Transactions";
 import Header from "./Header";
 import Summary from "./Summary";
 
@@ -11,7 +11,7 @@ function App() {
         <Header />
         <main className={styles.main}>
           <Summary />
-          <Transactions />
+          <TransactionList />
         </main>
       </div>
     </TransactionsProvider>
