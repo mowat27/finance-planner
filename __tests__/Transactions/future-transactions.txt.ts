@@ -11,7 +11,7 @@ describe("Generating transactions from a payment schedule", () => {
       amount: 100,
       otherParty: "The Bank",
       description: "Loan",
-      dayOfMonth: 15,
+      paymentDay: 15,
     };
     const schedule = generateUpcomingTransaction(
       payment,
@@ -44,7 +44,7 @@ describe("Generating transactions from a payment schedule", () => {
       amount: 100,
       otherParty: "The Bank",
       description: "Loan",
-      dayOfMonth: 14,
+      paymentDay: 14,
     };
     const schedule = generateUpcomingTransaction(
       payment,

@@ -10,15 +10,14 @@ export function* generateUpcomingTransaction(
   schedule: MonthlyPayment,
   startingFrom: DateTime
 ): Iterator<Transaction> {
-  const { dayOfMonth: paymentDay } = schedule;
-  const { day, month } = startingFrom;
+  const { amount, otherParty, description, reference, paymentDay } = schedule;
 
-  let date =
-    paymentDay > day
-      ? startingFrom.set({ day: paymentDay })
-      : startingFrom.set({ day: paymentDay, month: month + 1 });
-
-  const { amount, otherParty, description, reference } = schedule;
+  // DateTimes are immutable so .set creates a new object
+  let date = startingFrom.startOf("day");
+  date = date.set({ day: paymentDay });
+  if (paymentDay <= startingFrom.day) {
+    date = date.plus({ month: 1 });
+  }
 
   let nextPayment: Transaction = {
     date,

@@ -31,13 +31,13 @@ export function fetchPaymentSchedule(): MonthlyPayment[] {
       amount: 100,
       otherParty: "The Bank",
       description: "Loan",
-      dayOfMonth: 1,
+      paymentDay: 1,
     },
     {
       amount: 35,
       otherParty: "Insurance co",
       description: "House Insurance",
-      dayOfMonth: 15,
+      paymentDay: 25,
     },
   ];
 }

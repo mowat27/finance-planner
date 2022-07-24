@@ -16,7 +16,7 @@ export interface MonthlyPayment {
   amount: number;
   otherParty: ThirdParty;
   description: string;
-  dayOfMonth: number;
+  paymentDay: number;
   lastPayment?: DateTime;
   reference?: string;
 }
