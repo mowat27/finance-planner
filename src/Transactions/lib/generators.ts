@@ -1,4 +1,4 @@
-import { Transaction, MonthlyPayment } from "../state/transactions/types";
+import { Transaction, MonthlyPayment } from "../types";
 import { DateTime } from "luxon";
 
 export function* generatePaymentSchedule(

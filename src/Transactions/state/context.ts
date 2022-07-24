@@ -1,5 +1,5 @@
 import { createContext } from "react";
-import { Transaction, MonthlyPayment } from "./types";
+import { Transaction, MonthlyPayment } from "../types";
 
 const initialState = {
   state: {

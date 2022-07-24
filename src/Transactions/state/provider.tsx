@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { DateTime } from "luxon";
 
-import { Transaction, MonthlyPayment } from "./types";
+import { Transaction, MonthlyPayment } from "../types";
 import TransactionsContext from "./context";
 
 const fetchTransactions = (): Transaction[] => {

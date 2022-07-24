@@ -1,13 +1,13 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 
-import TransactionsProvider from "../state/transactions/provider";
+import TransactionsProvider from "../src/Transactions/state/provider";
 
 import styles from "../styles/Home.module.css";
 
-import Header from "../components/Header";
-import Transactions from "../components/Transactions";
-import Summary from "../components/Summary";
+import Header from "../src/Header";
+import Transactions from "../src/Transactions";
+import Summary from "../src/Summary";
 
 const Home: NextPage = () => {
   return (

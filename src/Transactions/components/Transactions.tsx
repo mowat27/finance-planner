@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { DateTime } from "luxon";
-import useTransactions from "../state/transactions/use";
-import { Transaction } from "../state/transactions/types";
+import useTransactions from "../state/use";
+import { Transaction } from "../types";
 
 import { generatePaymentSchedule } from "../lib/generators";
 

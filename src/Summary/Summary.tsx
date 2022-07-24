@@ -1,4 +1,4 @@
-import useTransactions from "../state/transactions/use";
+import useTransactions from "../Transactions/state/use";
 
 const Summary = () => {
   const {
