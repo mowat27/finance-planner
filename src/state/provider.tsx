@@ -34,14 +34,10 @@ export function* upcomingTransactionGenerator(
   }
 }
 
-function newUpcoming(paymentSchedule: MonthlyPayment[], numMonths: number) {
-  return paymentSchedule
+function nextBatch(generators: Iterator<Transaction>[]) {
+  return generators
     .reduce(
-      (arr: Transaction[], monthlyPayment: MonthlyPayment): Transaction[] => {
-        const generator = upcomingTransactionGenerator(
-          monthlyPayment,
-          DateTime.now()
-        );
+      (arr: Transaction[], generator: Iterator<Transaction>): Transaction[] => {
         const { value, done } = generator.next();
         return done ? arr : [...arr, value];
       },
@@ -51,6 +47,19 @@ function newUpcoming(paymentSchedule: MonthlyPayment[], numMonths: number) {
       // ascending order of date
       return a.date.toMillis() - b.date.toMillis();
     });
+}
+
+function newUpcoming(paymentSchedule: MonthlyPayment[], numMonths: number) {
+  let result: Transaction[] = [];
+  const generators = paymentSchedule.map((monthlyPayment: MonthlyPayment) =>
+    upcomingTransactionGenerator(monthlyPayment, DateTime.now())
+  );
+
+  Array.from(
+    Array(numMonths),
+    () => (result = [...result, ...nextBatch(generators)])
+  );
+  return result;
 }
 
 // TODO: figure out why React.FC's implicit children gives an error
@@ -64,7 +73,7 @@ export function AppProvider({ children }: Props) {
     fetchPaymentSchedule()
   );
   const [upcoming, setUpcoming] = useState([] as Transaction[]);
-  const [months, setMonths] = useState(1);
+  const [months, setMonths] = useState(3);
 
   useEffect(() => {
     setUpcoming(newUpcoming(paymentSchedule, months));
