@@ -11,11 +11,11 @@ describe("Generating transactions from a payment schedule", () => {
       amount: 100,
       otherParty: "The Bank",
       description: "Loan",
-      dayOfMonth: 1,
+      dayOfMonth: 15,
     };
     const schedule = generateUpcomingTransaction(
       payment,
-      DateTime.fromISO("2022-01-01")
+      DateTime.fromISO("2022-01-14")
     );
 
     let { value: first } = schedule.next();
@@ -24,18 +24,35 @@ describe("Generating transactions from a payment schedule", () => {
 
     expect(first).toStrictEqual({
       amount: 100,
-      date: DateTime.fromISO("2022-01-01"),
+      date: DateTime.fromISO("2022-01-15"),
       description: "Loan",
       otherParty: "The Bank",
       reference: undefined,
     });
     expect(second).toStrictEqual({
       ...first,
-      date: DateTime.fromISO("2022-02-01"),
+      date: DateTime.fromISO("2022-02-15"),
     });
     expect(third).toStrictEqual({
       ...first,
-      date: DateTime.fromISO("2022-03-01"),
+      date: DateTime.fromISO("2022-03-15"),
     });
+  });
+
+  it("returns next months payment if this months payment date has passed", () => {
+    const payment: MonthlyPayment = {
+      amount: 100,
+      otherParty: "The Bank",
+      description: "Loan",
+      dayOfMonth: 14,
+    };
+    const schedule = generateUpcomingTransaction(
+      payment,
+      DateTime.fromISO("2022-01-15")
+    );
+
+    let { value, done } = schedule.next();
+    expect(value.date).toStrictEqual(DateTime.fromISO("2022-02-14"));
+    expect(done).toBeFalsy();
   });
 });
