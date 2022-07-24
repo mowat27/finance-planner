@@ -1,8 +1,10 @@
 import styles from "../styles/Home.module.css";
 
-import TransactionList, { TransactionsProvider } from "./Transactions";
-import Header from "./Header";
-import Summary from "./Summary";
+import TransactionList, {
+  TransactionsProvider,
+} from "./components/Transactions";
+import Header from "./components/Header";
+import Summary from "./components/Summary";
 
 function App() {
   return (
