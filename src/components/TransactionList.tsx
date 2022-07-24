@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { DateTime } from "luxon";
 
-import { useTransactions } from "..";
+import { useApp } from "../state";
 import { Transaction } from "../types";
 import TransactionListItem from "./TransactionListItem";
 
@@ -9,7 +9,7 @@ function TransactionList() {
   const {
     state: { transactions, paymentSchedule },
     actions: { generatePaymentSchedule },
-  } = useTransactions();
+  } = useApp();
 
   const [futureTransactions, setFutureTransactions] = useState(
     [] as Transaction[]

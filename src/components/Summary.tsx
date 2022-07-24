@@ -1,9 +1,9 @@
-import { useTransactions } from "../Transactions";
+import { useApp } from "../state";
 
 const Summary = () => {
   const {
     state: { transactions },
-  } = useTransactions();
+  } = useApp();
 
   return (
     <div>

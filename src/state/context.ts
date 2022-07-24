@@ -4,7 +4,7 @@ import { DateTime } from "luxon";
 
 import { Transaction, MonthlyPayment } from "../types";
 
-import { generatePaymentSchedule } from "../lib/generators";
+import { generatePaymentSchedule } from "./generators";
 
 export interface State {
   state: {
@@ -33,4 +33,4 @@ const initialState: State = {
   },
 };
 
-export const TransactionsContext = createContext(initialState);
+export const AppContext = createContext(initialState);

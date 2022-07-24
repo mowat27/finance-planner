@@ -2,8 +2,8 @@ import "@testing-library/jest-dom";
 
 import { DateTime } from "luxon";
 
-import { generatePaymentSchedule } from "../../src/components/Transactions/lib/generators";
-import { MonthlyPayment } from "../../src/components/Transactions/types";
+import { generatePaymentSchedule } from "../../src/state/generators";
+import { MonthlyPayment } from "../../src/types";
 
 describe("Generating transactions from a payment schedule", () => {
   it("generates a list of monthly transactions", () => {

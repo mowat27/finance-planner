@@ -1,14 +1,14 @@
 import styles from "../styles/Home.module.css";
 
-import TransactionList, {
-  TransactionsProvider,
-} from "./components/Transactions";
+import { AppProvider } from "./state";
+
+import TransactionList from "./components/TransactionList";
 import Header from "./components/Header";
 import Summary from "./components/Summary";
 
 function App() {
   return (
-    <TransactionsProvider>
+    <AppProvider>
       <div>
         <Header />
         <main className={styles.main}>
@@ -16,7 +16,7 @@ function App() {
           <TransactionList />
         </main>
       </div>
-    </TransactionsProvider>
+    </AppProvider>
   );
 }
 
