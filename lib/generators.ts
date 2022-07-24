@@ -1,14 +1,5 @@
-import { Transaction, ThirdParty } from "../state/transactions/types";
+import { Transaction, MonthlyPayment } from "../state/transactions/types";
 import { DateTime } from "luxon";
-
-export interface MonthlyPayment {
-  amount: number;
-  otherParty: ThirdParty;
-  description: string;
-  dayOfMonth: number;
-  lastPayment?: DateTime;
-  reference?: string;
-}
 
 export function* generatePaymentSchedule(
   schedule: MonthlyPayment,

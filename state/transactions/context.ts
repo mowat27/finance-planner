@@ -1,8 +1,11 @@
 import { createContext } from "react";
-import { Transaction } from "./types";
+import { Transaction, MonthlyPayment } from "./types";
 
 const initialState = {
-  state: { transactions: [] as Transaction[] },
+  state: {
+    transactions: [] as Transaction[],
+    paymentSchedule: [] as MonthlyPayment[],
+  },
   actions: { setTransactions: (transactions: Transaction[]) => {} },
 };
 

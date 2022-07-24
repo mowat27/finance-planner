@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { DateTime } from "Luxon";
+import { DateTime } from "luxon";
 
-import { Transaction } from "./types";
+import { Transaction, MonthlyPayment } from "./types";
 import TransactionsContext from "./context";
 
 const fetchTransactions = (): Transaction[] => {
@@ -28,6 +28,23 @@ const fetchTransactions = (): Transaction[] => {
   ];
 };
 
+const fetchPaymentSchedule = (): MonthlyPayment[] => {
+  return [
+    {
+      amount: 100,
+      otherParty: "The Bank",
+      description: "Loan",
+      dayOfMonth: 1,
+    },
+    {
+      amount: 35,
+      otherParty: "Insurance co",
+      description: "House Insurance",
+      dayOfMonth: 15,
+    },
+  ];
+};
+
 type Props = {
   children?: React.ReactNode;
 };
@@ -35,10 +52,13 @@ type Props = {
 // TODO: figure out why React.FC's implicit children gives an error
 const TransactionsProvider = ({ children }: Props) => {
   const [transactions, setTransactions] = useState(fetchTransactions());
+  const [paymentSchedule, setPaymentSchedule] = useState(
+    fetchPaymentSchedule()
+  );
 
   const value = {
-    state: { transactions },
-    actions: { setTransactions },
+    state: { transactions, paymentSchedule },
+    actions: { setTransactions, setPaymentSchedule },
   };
 
   return (

@@ -1,9 +1,8 @@
 import { DateTime } from "luxon";
 import { Seq, Range } from "immutable";
 import "@testing-library/jest-dom";
-import { MonthlyPayment, generatePaymentSchedule } from "../../lib/generators";
-
-import { Transaction, ThirdParty } from "../../state/transactions/types";
+import { generatePaymentSchedule } from "../../lib/generators";
+import { MonthlyPayment } from "../../state/transactions/types";
 
 describe("Generating transactions from a payment schedule", () => {
   it("generates a list of monthly transactions", () => {

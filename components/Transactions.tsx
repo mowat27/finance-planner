@@ -1,6 +1,9 @@
+import { useState, useEffect } from "react";
 import { DateTime } from "luxon";
 import useTransactions from "../state/transactions/use";
 import { Transaction } from "../state/transactions/types";
+
+import { generatePaymentSchedule } from "../lib/generators";
 
 const Transaction = ({
   date,
@@ -10,7 +13,7 @@ const Transaction = ({
   reference,
 }: Transaction) => {
   return (
-    <div>
+    <div key={`${date}${amount}${otherParty}${description}`}>
       <span>{date.toLocaleString(DateTime.DATE_MED_WITH_WEEKDAY)}</span>&nbsp;
       <span>{amount}</span>&nbsp;
       <span>{otherParty}</span>&nbsp;
@@ -22,14 +25,28 @@ const Transaction = ({
 
 const Transactions = () => {
   const {
-    state: { transactions },
+    state: { transactions, paymentSchedule },
   } = useTransactions();
+
+  const [futureTransactions, setFutureTransactions] = useState(
+    [] as Transaction[]
+  );
+
+  useEffect(() => {
+    setFutureTransactions(
+      paymentSchedule.map(
+        (ps) => generatePaymentSchedule(ps, DateTime.now()).next().value
+      ) as Transaction[]
+    );
+  }, [paymentSchedule]);
+
   return (
     <div>
       <h2>Transactions</h2>
       <h3>Past</h3>
       {transactions.map((trxn: Transaction) => Transaction(trxn))}
       <h3>Upcoming</h3>
+      {futureTransactions.map((trxn: Transaction) => Transaction(trxn))}
     </div>
   );
 };
