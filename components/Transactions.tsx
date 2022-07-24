@@ -1,3 +1,4 @@
+import { DateTime } from "luxon";
 import useTransactions from "../state/transactions/use";
 import { Transaction } from "../state/transactions/types";
 
@@ -10,7 +11,7 @@ const Transaction = ({
 }: Transaction) => {
   return (
     <div>
-      <span>{date.toDateString()}</span>&nbsp;
+      <span>{date.toLocaleString(DateTime.DATE_MED_WITH_WEEKDAY)}</span>&nbsp;
       <span>{amount}</span>&nbsp;
       <span>{otherParty}</span>&nbsp;
       <span>{description}</span>&nbsp;

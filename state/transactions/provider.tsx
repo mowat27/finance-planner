@@ -1,24 +1,26 @@
 import React, { useState } from "react";
+import { DateTime } from "Luxon";
+
 import { Transaction } from "./types";
 import TransactionsContext from "./context";
 
 const fetchTransactions = (): Transaction[] => {
   return [
     {
-      date: new Date("2022-07-01"),
+      date: DateTime.fromISO("2022-07-01"),
       amount: 3000,
       otherParty: "ACME Payroll",
       reference: "emp12345",
       description: "July salary",
     },
     {
-      date: new Date("2022-07-02"),
+      date: DateTime.fromISO("2022-07-02"),
       amount: -100,
       otherParty: "Highland Council",
       description: "Council tax",
     },
     {
-      date: new Date("2022-07-03"),
+      date: DateTime.fromISO("2022-07-03"),
       amount: -132.87,
       otherParty: "Leccy & Co",
       description: "Electricity Monthly DD",

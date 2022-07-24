@@ -1,3 +1,4 @@
+import { DateTime } from "luxon";
 import { Seq, Range } from "immutable";
 import "@testing-library/jest-dom";
 
@@ -8,7 +9,7 @@ interface MonthlyPayment {
   otherParty: ThirdParty;
   description: string;
   dayOfMonth: number;
-  lastPayment?: Date;
+  lastPayment?: DateTime;
   reference?: string;
 }
 
@@ -18,13 +19,13 @@ function testSeq() {
 
 function* generatePaymentSchedule(
   schedule: MonthlyPayment,
-  startingFrom: Date
+  startingFrom: DateTime
 ) {
-  let date;
+  let date = startingFrom;
   const { amount, otherParty, description, reference } = schedule;
 
   let nextPayment: Transaction = {
-    date: startingFrom,
+    date,
     amount,
     otherParty,
     description,
@@ -32,14 +33,13 @@ function* generatePaymentSchedule(
   };
   while (true) {
     yield nextPayment;
-    date = new Date(nextPayment.date);
-    date.setMonth(date.getMonth() + 1);
+    date = date.plus({ months: 1 });
     nextPayment = { ...nextPayment, date };
   }
 }
 
 describe("Generating transactions from a payment schedule", () => {
-  it("generates a list of transactions", () => {
+  it("generates a list of transactions from a monthly payment schedule", () => {
     const payment: MonthlyPayment = {
       amount: 100,
       otherParty: "The Bank",
@@ -57,7 +57,10 @@ describe("Generating transactions from a payment schedule", () => {
       description: "Loan",
       dayOfMonth: 1,
     };
-    const schedule = generatePaymentSchedule(payment, new Date("2022-01-01"));
+    const schedule = generatePaymentSchedule(
+      payment,
+      DateTime.fromISO("2022-01-01")
+    );
 
     let { value: first } = schedule.next();
     let { value: second } = schedule.next();
@@ -65,12 +68,18 @@ describe("Generating transactions from a payment schedule", () => {
 
     expect(first).toStrictEqual({
       amount: 100,
-      date: new Date("2022-01-01"),
+      date: DateTime.fromISO("2022-01-01"),
       description: "Loan",
       otherParty: "The Bank",
       reference: undefined,
     });
-    expect(second).toStrictEqual({ ...first, date: new Date("2022-02-01") });
-    expect(third).toStrictEqual({ ...first, date: new Date("2022-03-01") });
+    expect(second).toStrictEqual({
+      ...first,
+      date: DateTime.fromISO("2022-02-01"),
+    });
+    expect(third).toStrictEqual({
+      ...first,
+      date: DateTime.fromISO("2022-03-01"),
+    });
   });
 });

@@ -1,9 +1,11 @@
+import { DateTime } from "Luxon";
+
 export type Payee = string;
 export type Recipient = string;
 export type ThirdParty = Payee | Recipient;
 
 export interface Transaction {
-  date: Date;
+  date: DateTime;
   amount: number;
   otherParty: ThirdParty;
   description: string;
