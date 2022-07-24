@@ -2,7 +2,7 @@ import "@testing-library/jest-dom";
 
 import { DateTime } from "luxon";
 
-import { generatePaymentSchedule } from "../../src/state/generators";
+import { generateUpcomingTransaction } from "../../src/state/provider";
 import { MonthlyPayment } from "../../src/types";
 
 describe("Generating transactions from a payment schedule", () => {
@@ -13,7 +13,7 @@ describe("Generating transactions from a payment schedule", () => {
       description: "Loan",
       dayOfMonth: 1,
     };
-    const schedule = generatePaymentSchedule(
+    const schedule = generateUpcomingTransaction(
       payment,
       DateTime.fromISO("2022-01-01")
     );
