@@ -6,8 +6,8 @@ const Summary = () => {
   } = useApp();
 
   return (
-    <div>
-      <h2>Summary</h2>
+    <div className="py-2">
+      <h2 className="text-2xl">Summary</h2>
       <p>You have {transactions.length} transactions</p>
     </div>
   );

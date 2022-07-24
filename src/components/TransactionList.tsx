@@ -8,8 +8,8 @@ function TransactionList() {
   } = useApp();
 
   return (
-    <div>
-      <h2>Transactions</h2>
+    <div className="py-2">
+      <h2 className="text-2xl">Transactions</h2>
       <h3>Past</h3>
       {transactions.map((trxn) => TransactionListItem(trxn))}
       <h3>Next {months} Month(s)</h3>

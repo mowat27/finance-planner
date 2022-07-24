@@ -1,5 +1,3 @@
-import styles from "../styles/Home.module.css";
-
 import { AppProvider } from "./state";
 
 import TransactionList from "./components/TransactionList";
@@ -9,9 +7,9 @@ import Summary from "./components/Summary";
 function App() {
   return (
     <AppProvider>
-      <div>
+      <div className="container mx-auto p-6">
         <Header />
-        <main className={styles.main}>
+        <main>
           <Summary />
           <TransactionList />
         </main>
