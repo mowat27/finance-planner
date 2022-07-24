@@ -57,7 +57,12 @@ export function AppProvider({ children }: Props) {
   const [upcoming, setUpcoming] = useState([] as Transaction[]);
 
   useEffect(() => {
-    setUpcoming(paymentSchedule.reduce(appendNextTransaction, []));
+    setUpcoming(
+      paymentSchedule.reduce(appendNextTransaction, []).sort((a, b) => {
+        // ascending order of date
+        return a.date.toMillis() - b.date.toMillis();
+      })
+    );
   }, [paymentSchedule]);
 
   const value = {
