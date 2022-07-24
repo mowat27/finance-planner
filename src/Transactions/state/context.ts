@@ -9,6 +9,4 @@ const initialState = {
   actions: { setTransactions: (transactions: Transaction[]) => {} },
 };
 
-const TransactionsContext = createContext(initialState);
-
-export default TransactionsContext;
+export const TransactionsContext = createContext(initialState);
