@@ -7,10 +7,12 @@ export interface State {
     transactions: Transaction[];
     upcoming: Transaction[];
     paymentSchedule: MonthlyPayment[];
+    months: number;
   };
   actions: {
     setTransactions(transactions: Transaction[]): void;
     setPaymentSchedule(paymentSchedule: MonthlyPayment[]): void;
+    addMonth(): void;
   };
 }
 
@@ -19,10 +21,12 @@ const initialState: State = {
     transactions: [],
     upcoming: [],
     paymentSchedule: [],
+    months: 1,
   },
   actions: {
     setTransactions: (transactions: Transaction[]) => {},
     setPaymentSchedule: (paymentSchedule: MonthlyPayment[]) => {},
+    addMonth: () => {},
   },
 };
 
