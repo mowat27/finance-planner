@@ -27,7 +27,9 @@ const Transactions = () => {
   return (
     <div>
       <h2>Transactions</h2>
+      <h3>Past</h3>
       {transactions.map((trxn: Transaction) => Transaction(trxn))}
+      <h3>Upcoming</h3>
     </div>
   );
 };
