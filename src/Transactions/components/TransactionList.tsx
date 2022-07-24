@@ -5,11 +5,10 @@ import { useTransactions } from "..";
 import { Transaction } from "../types";
 import TransactionListItem from "./TransactionListItem";
 
-import { generatePaymentSchedule } from "../lib/generators";
-
 function TransactionList() {
   const {
     state: { transactions, paymentSchedule },
+    actions: { generatePaymentSchedule },
   } = useTransactions();
 
   const [futureTransactions, setFutureTransactions] = useState(
@@ -22,7 +21,7 @@ function TransactionList() {
         (ps) => generatePaymentSchedule(ps, DateTime.now()).next().value
       ) as Transaction[]
     );
-  }, [paymentSchedule]);
+  }, [generatePaymentSchedule, paymentSchedule]);
 
   return (
     <div>

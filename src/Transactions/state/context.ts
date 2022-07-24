@@ -1,12 +1,36 @@
 import { createContext } from "react";
+
+import { DateTime } from "luxon";
+
 import { Transaction, MonthlyPayment } from "../types";
 
-const initialState = {
+import { generatePaymentSchedule } from "../lib/generators";
+
+export interface State {
   state: {
-    transactions: [] as Transaction[],
-    paymentSchedule: [] as MonthlyPayment[],
+    transactions: Transaction[];
+    paymentSchedule: MonthlyPayment[];
+  };
+  actions: {
+    setTransactions(transactions: Transaction[]): void;
+    setPaymentSchedule(paymentSchedule: MonthlyPayment[]): void;
+    generatePaymentSchedule(
+      schedule: MonthlyPayment,
+      startingFrom: DateTime
+    ): Iterator<Transaction>;
+  };
+}
+
+const initialState: State = {
+  state: {
+    transactions: [],
+    paymentSchedule: [],
   },
-  actions: { setTransactions: (transactions: Transaction[]) => {} },
+  actions: {
+    setTransactions: (transactions: Transaction[]) => {},
+    setPaymentSchedule: (paymentSchedule: MonthlyPayment[]) => {},
+    generatePaymentSchedule,
+  },
 };
 
 export const TransactionsContext = createContext(initialState);

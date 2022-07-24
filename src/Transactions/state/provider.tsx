@@ -4,6 +4,8 @@ import { DateTime } from "luxon";
 import { Transaction, MonthlyPayment } from "../types";
 import { TransactionsContext } from "./context";
 
+import { generatePaymentSchedule } from "../lib/generators";
+
 const fetchTransactions = (): Transaction[] => {
   return [
     {
@@ -58,7 +60,7 @@ export const TransactionsProvider = ({ children }: Props) => {
 
   const value = {
     state: { transactions, paymentSchedule },
-    actions: { setTransactions, setPaymentSchedule },
+    actions: { setTransactions, setPaymentSchedule, generatePaymentSchedule },
   };
 
   return (
