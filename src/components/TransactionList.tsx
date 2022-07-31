@@ -1,5 +1,7 @@
 import { useApp } from "../state";
-import TransactionListItem from "./TransactionListItem";
+import TransactionListItem, {
+  TransactionListItemType,
+} from "./TransactionListItem";
 
 function TransactionList() {
   const {
@@ -7,19 +9,26 @@ function TransactionList() {
     actions: { addMonth },
   } = useApp();
 
+  const items = [
+    ...transactions.map((trxn) => TransactionListItem(trxn, "past")),
+    ...upcoming.map((trxn) => TransactionListItem(trxn, "upcoming")),
+  ];
+
   return (
     <div className="py-2">
-      <h2 className="text-2xl">Transactions</h2>
-      <h3>Past</h3>
-      {transactions.map((trxn) => TransactionListItem(trxn))}
-      <h3>Next {months} Month(s)</h3>
-      <div>
-        <a onClick={addMonth} href="#">
-          More
-        </a>
+      <div className="flex items-center">
+        <h2 className="text-2xl">Transactions</h2>
+        <div className="p-5">
+          <a
+            className="px-3 py-1 bg-sky-200 hover:border-sky-800 rounded-md border-2"
+            onClick={addMonth}
+            href="#"
+          >
+            Load More
+          </a>
+        </div>
       </div>
-      <br />
-      <div>{upcoming.map((trxn) => TransactionListItem(trxn))}</div>
+      <div>{items}</div>
     </div>
   );
 }
