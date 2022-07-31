@@ -35,7 +35,10 @@ export default function handler(
   const transactions: Transaction[] = statement.map(
     (row: MonzoStatementTransaction) => {
       return {
-        date: DateTime.now(),
+        date: DateTime.fromFormat(
+          `${row.Date} ${row.Time}`,
+          "dd/MM/yyyy H:mm:ss"
+        ),
         amount: row.Amount,
         otherParty: row.Name,
         description: row.Description,

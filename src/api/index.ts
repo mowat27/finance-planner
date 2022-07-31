@@ -1,28 +1,22 @@
 import { DateTime } from "luxon";
+
+import { server } from "../../config";
 import { Transaction, MonthlyPayment } from "../types";
 
-export function fetchTransactions(): Transaction[] {
-  return [
-    {
-      date: DateTime.fromISO("2022-07-01"),
-      amount: 3000,
-      otherParty: "ACME Payroll",
-      reference: "emp12345",
-      description: "July salary",
-    },
-    {
-      date: DateTime.fromISO("2022-07-02"),
-      amount: -100,
-      otherParty: "Highland Council",
-      description: "Council tax",
-    },
-    {
-      date: DateTime.fromISO("2022-07-03"),
-      amount: -132.87,
-      otherParty: "Leccy & Co",
-      description: "Electricity Monthly DD",
-    },
-  ];
+// Because dates are serialized as strings in JSON
+interface ApiTransaction extends Omit<Transaction, "date"> {
+  date: string;
+}
+
+function toTransaction(apiTransaction: ApiTransaction): Transaction {
+  return { ...apiTransaction, date: DateTime.fromISO(apiTransaction.date) };
+}
+
+export async function fetchTransactions(): Promise<Transaction[]> {
+  const res = await fetch(`${server}/api/statements`);
+  return await res
+    .json()
+    .then((apiTransactions) => apiTransactions.map(toTransaction));
 }
 
 export function fetchPaymentSchedule(): MonthlyPayment[] {

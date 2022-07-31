@@ -68,12 +68,16 @@ type Props = {
 };
 
 export function AppProvider({ children }: Props) {
-  const [transactions, setTransactions] = useState(fetchTransactions());
+  const [transactions, setTransactions] = useState([] as Transaction[]);
   const [paymentSchedule, setPaymentSchedule] = useState(
     fetchPaymentSchedule()
   );
   const [upcoming, setUpcoming] = useState([] as Transaction[]);
   const [months, setMonths] = useState(3);
+
+  useEffect(() => {
+    fetchTransactions().then(setTransactions);
+  }, [setTransactions]);
 
   useEffect(() => {
     setUpcoming(newUpcoming(paymentSchedule, months));
