@@ -28,13 +28,19 @@ export function fetchTransactions(): Transaction[] {
 export function fetchPaymentSchedule(): MonthlyPayment[] {
   return [
     {
-      amount: 100,
+      amount: +3000,
+      otherParty: "ACME Payroll",
+      description: "Salary",
+      paymentDay: 1,
+    },
+    {
+      amount: -100,
       otherParty: "The Bank",
       description: "Loan",
       paymentDay: 1,
     },
     {
-      amount: 35,
+      amount: -35,
       otherParty: "Insurance co",
       description: "House Insurance",
       paymentDay: 25,

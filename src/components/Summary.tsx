@@ -9,7 +9,7 @@ const Summary = () => {
     <div className="py-2">
       <h2 className="text-2xl">Summary</h2>
       <p>
-        Showing {transactions.length} past transactions and {upcoming.length}
+        Showing {transactions.length} past transactions and {upcoming.length}{" "}
         projected transactions
       </p>
     </div>
