@@ -62,7 +62,7 @@ function newUpcoming(paymentSchedule: MonthlyPayment[], numMonths: number) {
   return result;
 }
 
-function rollingBalance(
+function setRollingBalance(
   startingBalance: number,
   transactions: Transaction[]
 ): Transaction[] {
@@ -96,9 +96,10 @@ export function AppProvider({ children }: Props) {
   const [startingBalance] = useState(0);
 
   useEffect(() => {
-    fetchTransactions().then((transactions) => {
-      setTransactions(rollingBalance(startingBalance, transactions));
-    });
+    fetchTransactions()
+      .then((transactions) => setRollingBalance(startingBalance, transactions))
+      .then((transactions) => transactions.reverse())
+      .then(setTransactions);
   }, [setTransactions, startingBalance, transactions]);
 
   useEffect(() => {
