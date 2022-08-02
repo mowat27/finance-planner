@@ -1,6 +1,6 @@
 import { AppProvider } from "./state";
 
-import TransactionList from "./components/TransactionList";
+import Ledger from "./components/Ledger";
 import Header from "./components/Header";
 import Summary from "./components/Summary";
 
@@ -11,7 +11,7 @@ function App() {
         <Header />
         <main>
           <Summary />
-          <TransactionList />
+          <Ledger />
         </main>
       </div>
     </AppProvider>

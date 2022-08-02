@@ -1,15 +1,15 @@
 import { useApp } from "../state";
-import TransactionListItem from "./TransactionListItem";
+import LedgerItem from "./LedgerItem";
 
-function TransactionList() {
+function Ledger() {
   const {
     state: { transactions, upcoming },
     actions: { addMonth },
   } = useApp();
 
   const items = [
-    ...upcoming.map((trxn) => TransactionListItem(trxn, "upcoming")),
-    ...transactions.map((trxn) => TransactionListItem(trxn, "past")),
+    ...upcoming.map((item) => LedgerItem(item, "upcoming")),
+    ...transactions.map((item) => LedgerItem(item, "past")),
   ];
 
   return (
@@ -31,4 +31,4 @@ function TransactionList() {
   );
 }
 
-export default TransactionList;
+export default Ledger;

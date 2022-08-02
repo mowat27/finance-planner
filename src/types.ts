@@ -1,4 +1,5 @@
 import { DateTime } from "luxon";
+import { Money } from "ts-money";
 
 export type Payee = string;
 export type Recipient = string;
@@ -6,15 +7,18 @@ export type ThirdParty = Payee | Recipient;
 
 export interface Transaction {
   date: DateTime;
-  amount: number;
+  amount: Money;
   otherParty: ThirdParty;
   description: string;
   reference?: string;
-  balance?: number;
+}
+
+export interface LedgerEntry extends Transaction {
+  balance: Money;
 }
 
 export interface MonthlyPayment {
-  amount: number;
+  amount: Money;
   otherParty: ThirdParty;
   description: string;
   paymentDay: number;

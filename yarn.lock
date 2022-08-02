@@ -1524,6 +1524,11 @@
   "resolved" "https://registry.npmjs.org/diff-sequences/-/diff-sequences-28.1.1.tgz"
   "version" "28.1.1"
 
+"dinero.js@^1.9.1":
+  "integrity" "sha512-1HXiF2vv3ZeRQ23yr+9lFxj/PbZqutuYWJnE0qfCB9xYBPnuaJ8lXtli1cJM0TvUXW1JTOaePldmqN5JVNxKSA=="
+  "resolved" "https://registry.npmjs.org/dinero.js/-/dinero.js-1.9.1.tgz"
+  "version" "1.9.1"
+
 "dir-glob@^3.0.1":
   "integrity" "sha512-WkrWp9GR4KXfKGYzOLmTuGVi1UWFfws377n9cc55/tb6DuqyF6pcQ5AbiHEshaDpY9v6oaSr2XCDidGmMwdzIA=="
   "resolved" "https://registry.npmjs.org/dir-glob/-/dir-glob-3.0.1.tgz"
@@ -3007,7 +3012,7 @@
   "resolved" "https://registry.npmjs.org/lodash.merge/-/lodash.merge-4.6.2.tgz"
   "version" "4.6.2"
 
-"lodash@^4.17.15":
+"lodash@^4.17.15", "lodash@^4.17.5":
   "integrity" "sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg=="
   "resolved" "https://registry.npmjs.org/lodash/-/lodash-4.17.21.tgz"
   "version" "4.17.21"
@@ -4011,6 +4016,13 @@
   "version" "3.0.0"
   dependencies:
     "punycode" "^2.1.1"
+
+"ts-money@^0.4.8":
+  "integrity" "sha512-tYOzrAzyhfp4+GWLcXSlgPKbQIhGBR33/bVuzY5EPQceBHiH6YPo+lDkYusKXsCVb4hNAZtld44qjSdaQcNTig=="
+  "resolved" "https://registry.npmjs.org/ts-money/-/ts-money-0.4.8.tgz"
+  "version" "0.4.8"
+  dependencies:
+    "lodash" "^4.17.5"
 
 "tsconfig-paths@^3.14.1":
   "integrity" "sha512-fxDhWnFSLt3VuTwtvJt5fpwxBHg5AdKWMsgcPOOIilyjymcYVZoCQF8fvFRezCNfblEXmi+PcM1eYHeOAgXCOQ=="

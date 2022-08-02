@@ -1,14 +1,14 @@
 import { DateTime } from "luxon";
-import { Transaction } from "../types";
+import { LedgerEntry } from "../types";
 import MoneyAmount from "./MoneyAmount";
 
-export type TransactionListItemType = "past" | "upcoming";
+export type LedgerItemType = "past" | "upcoming";
 
-function TransactionListItem(
-  { date, amount, otherParty, description, reference, balance }: Transaction,
-  transactionClass: string
+function LedgerItem(
+  { date, amount, otherParty, description, reference, balance }: LedgerEntry,
+  itemType: LedgerItemType
 ) {
-  const formatting = transactionClass === "upcoming" ? "text-neutral-400" : "";
+  const formatting = itemType === "upcoming" ? "text-neutral-400" : "";
   return (
     <div
       key={`${date}${amount}${otherParty}${description}`}
@@ -24,13 +24,10 @@ function TransactionListItem(
       <div className="flex-1">{description}</div>
       <div className="flex-1">{reference}</div>
       <div className="flex-1">
-        <MoneyAmount
-          currencySymbol="£"
-          amount={typeof balance === "number" ? balance : 0}
-        />
+        <MoneyAmount currencySymbol="£" amount={balance} />
       </div>
     </div>
   );
 }
 
-export default TransactionListItem;
+export default LedgerItem;

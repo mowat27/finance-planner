@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
 import { DateTime } from "luxon";
+import { Money } from "ts-money";
 
 import { AppContext } from "./context";
 
-import { Transaction, MonthlyPayment } from "../types";
+import { Transaction, LedgerEntry, MonthlyPayment } from "../types";
 import { fetchTransactions, fetchPaymentSchedule } from "../api";
 
 export function* upcomingTransactionGenerator(
@@ -62,13 +63,13 @@ function newUpcoming(paymentSchedule: MonthlyPayment[], numMonths: number) {
   return result;
 }
 
-function setRollingBalance(
-  startingBalance: number,
+function createLedgerEntries(
+  startingBalance: Money,
   transactions: Transaction[]
-): Transaction[] {
+): LedgerEntry[] {
   return transactions.reduce(
     (memo, transaction) => {
-      const balance = memo.balance + transaction.amount;
+      const balance = memo.balance.add(transaction.amount);
       return {
         balance,
         transactions: [...memo.transactions, { ...transaction, balance }],
@@ -76,7 +77,7 @@ function setRollingBalance(
     },
     {
       balance: startingBalance,
-      transactions: [] as Transaction[],
+      transactions: [] as LedgerEntry[],
     }
   ).transactions;
 }
@@ -87,25 +88,31 @@ type Props = {
 };
 
 export function AppProvider({ children }: Props) {
-  const [transactions, setTransactions] = useState([] as Transaction[]);
+  const [transactions, setTransactions] = useState([] as LedgerEntry[]);
   const [paymentSchedule, setPaymentSchedule] = useState(
     fetchPaymentSchedule()
   );
-  const [upcoming, setUpcoming] = useState([] as Transaction[]);
+  const [upcoming, setUpcoming] = useState([] as LedgerEntry[]);
   const [months, setMonths] = useState(3);
-  const [startingBalance] = useState(0);
+  const [startingBalance] = useState(new Money(0, "GBP"));
 
   useEffect(() => {
     fetchTransactions()
-      .then((transactions) => setRollingBalance(startingBalance, transactions))
-      .then((transactions) => transactions.reverse())
+      .then((transactions) =>
+        createLedgerEntries(startingBalance, transactions)
+      )
+      .then((ledger) => ledger.reverse())
       .then(setTransactions);
   }, [setTransactions, startingBalance, transactions]);
 
   useEffect(() => {
-    const balance = transactions.length > 0 ? transactions[0].balance! : 0;
+    const balance =
+      transactions.length > 0 ? transactions[0].balance : new Money(0, "GBP");
     setUpcoming(
-      setRollingBalance(balance, newUpcoming(paymentSchedule, months)).reverse()
+      createLedgerEntries(
+        balance,
+        newUpcoming(paymentSchedule, months)
+      ).reverse()
     );
   }, [paymentSchedule, months, transactions]);
 

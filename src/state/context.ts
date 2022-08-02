@@ -1,16 +1,16 @@
 import { createContext } from "react";
 
-import { Transaction, MonthlyPayment } from "../types";
+import { LedgerEntry, MonthlyPayment } from "../types";
 
 export interface State {
   state: {
-    transactions: Transaction[];
-    upcoming: Transaction[];
+    transactions: LedgerEntry[];
+    upcoming: LedgerEntry[];
     paymentSchedule: MonthlyPayment[];
     months: number;
   };
   actions: {
-    setTransactions(transactions: Transaction[]): void;
+    setTransactions(transactions: LedgerEntry[]): void;
     setPaymentSchedule(paymentSchedule: MonthlyPayment[]): void;
     addMonth(): void;
   };
@@ -24,7 +24,7 @@ const initialState: State = {
     months: 1,
   },
   actions: {
-    setTransactions: (transactions: Transaction[]) => {},
+    setTransactions: (transactions: LedgerEntry[]) => {},
     setPaymentSchedule: (paymentSchedule: MonthlyPayment[]) => {},
     addMonth: () => {},
   },

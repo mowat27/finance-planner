@@ -1,21 +1,24 @@
+import { Money } from "ts-money";
+
 interface Props {
   currencySymbol: string;
-  amount: number;
+  amount: Money;
 }
+
+const ZERO = new Money(0, "GBP");
 
 function MoneyAmount({ currencySymbol, amount }: Props) {
   let prefix = " ";
   let formatting = "";
 
-  if (amount > 0) {
-    prefix = "+";
+  if (amount.greaterThan(ZERO)) {
     formatting += "text-green-600";
   }
   return (
     <span className={formatting}>
       {prefix}
       {currencySymbol}
-      {Math.abs(amount)}
+      {amount.toString()}
     </span>
   );
 }
