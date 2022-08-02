@@ -74,12 +74,29 @@ export function AppProvider({ children }: Props) {
   );
   const [upcoming, setUpcoming] = useState([] as Transaction[]);
   const [months, setMonths] = useState(3);
+  const [startingBalance] = useState(0);
 
   useEffect(() => {
-    fetchTransactions().then((transactions) =>
-      setTransactions(transactions.reverse())
-    );
-  }, [setTransactions]);
+    fetchTransactions().then((transactions) => {
+      const transactionsWithBalances = transactions
+        .reduce(
+          (memo, transaction) => {
+            const balance = memo.balance + transaction.amount;
+            return {
+              balance,
+              transactions: [...memo.transactions, { ...transaction, balance }],
+            };
+          },
+          {
+            balance: startingBalance,
+            transactions: [] as Transaction[],
+          }
+        )
+        .transactions.reverse();
+
+      setTransactions(transactionsWithBalances);
+    });
+  }, [setTransactions, startingBalance, transactions]);
 
   useEffect(() => {
     setUpcoming(newUpcoming(paymentSchedule, months).reverse());

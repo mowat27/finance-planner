@@ -5,7 +5,7 @@ import MoneyAmount from "./MoneyAmount";
 export type TransactionListItemType = "past" | "upcoming";
 
 function TransactionListItem(
-  { date, amount, otherParty, description, reference }: Transaction,
+  { date, amount, otherParty, description, reference, balance }: Transaction,
   transactionClass: string
 ) {
   const formatting = transactionClass === "upcoming" ? "text-neutral-400" : "";
@@ -23,6 +23,12 @@ function TransactionListItem(
       <div className="flex-1">{otherParty}</div>
       <div className="flex-1">{description}</div>
       <div className="flex-1">{reference}</div>
+      <div className="flex-1">
+        <MoneyAmount
+          currencySymbol="£"
+          amount={typeof balance === "number" ? balance : 0}
+        />
+      </div>
     </div>
   );
 }

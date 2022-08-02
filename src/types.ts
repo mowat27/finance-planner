@@ -10,6 +10,7 @@ export interface Transaction {
   otherParty: ThirdParty;
   description: string;
   reference?: string;
+  balance?: number;
 }
 
 export interface MonthlyPayment {
