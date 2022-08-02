@@ -1,17 +1,15 @@
 import { useApp } from "../state";
-import TransactionListItem, {
-  TransactionListItemType,
-} from "./TransactionListItem";
+import TransactionListItem from "./TransactionListItem";
 
 function TransactionList() {
   const {
-    state: { transactions, upcoming, months },
+    state: { transactions, upcoming },
     actions: { addMonth },
   } = useApp();
 
   const items = [
-    ...transactions.map((trxn) => TransactionListItem(trxn, "past")),
     ...upcoming.map((trxn) => TransactionListItem(trxn, "upcoming")),
+    ...transactions.map((trxn) => TransactionListItem(trxn, "past")),
   ];
 
   return (

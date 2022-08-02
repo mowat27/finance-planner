@@ -76,11 +76,13 @@ export function AppProvider({ children }: Props) {
   const [months, setMonths] = useState(3);
 
   useEffect(() => {
-    fetchTransactions().then(setTransactions);
+    fetchTransactions().then((transactions) =>
+      setTransactions(transactions.reverse())
+    );
   }, [setTransactions]);
 
   useEffect(() => {
-    setUpcoming(newUpcoming(paymentSchedule, months));
+    setUpcoming(newUpcoming(paymentSchedule, months).reverse());
   }, [paymentSchedule, months]);
 
   const addMonth = () => setMonths(months + 1);
