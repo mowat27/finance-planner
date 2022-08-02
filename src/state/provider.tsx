@@ -94,7 +94,7 @@ export function AppProvider({ children }: Props) {
   );
   const [upcoming, setUpcoming] = useState([] as LedgerEntry[]);
   const [months, setMonths] = useState(3);
-  const [startingBalance] = useState(new Money(0, "GBP"));
+  const [startingBalance] = useState(Money.fromDecimal(60.77, "GBP"));
 
   useEffect(() => {
     fetchTransactions()
