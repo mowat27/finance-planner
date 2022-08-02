@@ -62,6 +62,25 @@ function newUpcoming(paymentSchedule: MonthlyPayment[], numMonths: number) {
   return result;
 }
 
+function rollingBalance(
+  startingBalance: number,
+  transactions: Transaction[]
+): Transaction[] {
+  return transactions.reduce(
+    (memo, transaction) => {
+      const balance = memo.balance + transaction.amount;
+      return {
+        balance,
+        transactions: [...memo.transactions, { ...transaction, balance }],
+      };
+    },
+    {
+      balance: startingBalance,
+      transactions: [] as Transaction[],
+    }
+  ).transactions;
+}
+
 // TODO: figure out why React.FC's implicit children gives an error
 type Props = {
   children?: React.ReactNode;
@@ -78,23 +97,7 @@ export function AppProvider({ children }: Props) {
 
   useEffect(() => {
     fetchTransactions().then((transactions) => {
-      const transactionsWithBalances = transactions
-        .reduce(
-          (memo, transaction) => {
-            const balance = memo.balance + transaction.amount;
-            return {
-              balance,
-              transactions: [...memo.transactions, { ...transaction, balance }],
-            };
-          },
-          {
-            balance: startingBalance,
-            transactions: [] as Transaction[],
-          }
-        )
-        .transactions.reverse();
-
-      setTransactions(transactionsWithBalances);
+      setTransactions(rollingBalance(startingBalance, transactions));
     });
   }, [setTransactions, startingBalance, transactions]);
 
