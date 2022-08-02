@@ -103,8 +103,11 @@ export function AppProvider({ children }: Props) {
   }, [setTransactions, startingBalance, transactions]);
 
   useEffect(() => {
-    setUpcoming(newUpcoming(paymentSchedule, months).reverse());
-  }, [paymentSchedule, months]);
+    const balance = transactions.length > 0 ? transactions[0].balance! : 0;
+    setUpcoming(
+      setRollingBalance(balance, newUpcoming(paymentSchedule, months)).reverse()
+    );
+  }, [paymentSchedule, months, transactions]);
 
   const addMonth = () => setMonths(months + 1);
 
