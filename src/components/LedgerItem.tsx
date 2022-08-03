@@ -1,6 +1,9 @@
 import { DateTime } from "luxon";
 import { LedgerEntry } from "../types";
+
+import CalendarDate from "./CalendarDate";
 import MoneyAmount from "./MoneyAmount";
+import Balance from "./Balance";
 
 export type LedgerItemType = "past" | "upcoming";
 
@@ -35,7 +38,7 @@ function LedgerItem(
       className={`flex gap-x-6 p-2 m-1 rounded-md shadow-md bg-white  hover:bg-stone-100 ${formatting}`}
     >
       <div className="flex-none w-1/12">
-        {date.toLocaleString(DateTime.DATE_MED)}
+        <CalendarDate datetime={date} />
       </div>
       <div className="flex-1 align-text-bottom">
         <div className="flex">
@@ -51,7 +54,7 @@ function LedgerItem(
         </div>
       </div>
       <div className="flex-1">
-        <MoneyAmount amount={balance} />
+        <Balance amount={balance} />
       </div>
     </div>
   );
