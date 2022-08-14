@@ -35,26 +35,21 @@ function LedgerItem(
   return (
     <div
       key={`${date}${amount}${otherParty}${description}`}
-      className={`flex gap-x-6 p-2 m-1 rounded-md shadow-md bg-white  hover:bg-stone-100 ${formatting}`}
+      className={`grid grid-cols-4 grid-rows-2 my-2 p-2 rounded-md shadow-md bg-white  hover:bg-stone-100 ${formatting}`}
     >
-      <div className="flex-none w-1/12">
+      <div className="row-span-2 w-64 flex items-center justify-left">
         <CalendarDate datetime={date} />
       </div>
-      <div className="flex-1 align-text-bottom">
-        <div className="flex">
-          <span className="flex-none w-32 text-xl">
-            <MoneyAmount amount={amount} />
-          </span>
-          <span className="flex-1 ml-2 text-base">{otherParty}</span>
-          &nbsp;
-        </div>
-        <div>
-          <Label description={description} reference={reference} />
-          &nbsp;
-        </div>
+      <div className="w-32 text-xl">
+        <MoneyAmount amount={amount} />
       </div>
-      <div className="flex-1">
+      <div className="ml-2 text-base">{otherParty}</div>
+      <div className="row-span-2 flex items-center justify-center">
         <Balance amount={balance} />
+      </div>
+      <div className="col-start-2 col-span-2">
+        <Label description={description} reference={reference} />
+        &nbsp;
       </div>
     </div>
   );
